@@ -37,7 +37,7 @@ class RecipeController extends Controller
         $recents = Recipe::latest()->take($n)->select('title','id','created_at')->get();
         foreach ($recents as $key => &$recent) {
             $date = $recent->created_at->format('d-m-Y H:i:s');
-            $recent->timeAgo = Carbon\Carbon::parse($date, 'America/Denver')->diffForHumans();
+            $recent->timeAgo = Carbon\Carbon::parse($date)->diffForHumans();
         }
         return $recents;
    }
