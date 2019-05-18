@@ -125,10 +125,13 @@ if __name__ == '__main__':
     print(config['database'])
 
     while(True):
-        temp = random.uniform(0.2, 3)
-        data = generateRecipeData(temp)
-        if data:
-            db = pymysql.connect(config['hostname'],config['username'],config['password'],config['database'] )
-            # prepare a cursor object using cursor() method
-            cursor = db.cursor()
-            addRecipe(data)
+        try:
+            temp = random.uniform(0.2, 3)
+            data = generateRecipeData(temp)
+            if data:
+                db = pymysql.connect(config['hostname'],config['username'],config['password'],config['database'] )
+                # prepare a cursor object using cursor() method
+                cursor = db.cursor()
+                addRecipe(data)
+        except:
+            pass
