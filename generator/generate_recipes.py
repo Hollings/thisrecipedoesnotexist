@@ -7,67 +7,44 @@ import os
 import numpy as np
 import tensorflow as tf
 import random
+import pymysql
 
 
 import model, sample, encoder
 temp = 1
-def saveToIndex(num):
+
+def generateRecipeData():
     temp = random.uniform(0.5, 2.0)
     # num = random.randint(0,1000);
     text = fire.Fire(sample_model)
-    try:
-        if "<end>" in text:
-            text = text.split("<end>")[1]
-        recipeParts = text.split("\n")
-        finalIndex = '''
-        <head>
+    
+    if "<end>" in text:
+        text = text.split("<end>")[1]
+    recipeParts = text.split("\n")
 
-            <style>
-                .ing p {
-                margin: 0 15px;
-                }
-
-                .dir p {
-                    margin: 15px;
-                }
-                .dir, .ing{
-                    margin-top:50px
-                }
-
-                .container {
-                    margin-top: 50px;
-                    margin-bottom: 50px;
-                }
-        .container .content{
-border: 1px solid #cacaca
-}
-                .footer {
-                    text-align: center;
-                    color: #adb5bd;
-                    font-size: 10px;
-                }
-            </style>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        </head>
-        <div class="container"><div class="content shadow p-3 mb-5 bg-light rounded"><h1>''' + recipeParts[1] + "</h1>"
-        for line in recipeParts[2:]:
-            if line is "":
-                continue
-            if "Directions" in line:
-                finalIndex += "</div><div class='dir'><h2>Directions</h2>"
-            elif "Ingredients" in line:
-                finalIndex += "<div class='ing'><h2>Ingredients</h2>"
-            else:
-                finalIndex += "<p>- " + line + "</p>"
-
-        finalIndex += "</div></div></div><div class='footer'>Recipe generated with temp of " + str(round(temp,3)) + " at "+datetime.datetime.now().strftime('%B %d %Y %I:%M%p')+"</div>"
-
-        if not os.path.exists(str(num)):
-            os.makedirs(str(num))
-        f = open(str(num) + "/index.html", "w")
-        f.write(finalIndex)
-    except:
-        pass
+    title = recipeParts[1]
+    ingredients = []
+    directions = []
+    part = "ing"
+    for line in recipeParts[2:]:
+        if line is "":
+            continue
+        if "Directions" in line:
+            part = "dir"
+        elif "Ingredients" in line:
+            continue
+        else:
+            if part is "ing":
+                ingredients.append(line)
+            if part is "dir":
+                directions.append(line)
+            
+    print(title)
+    if len(title)<254 and len(ingredients)>0 and len(directions)>0:
+        return [title, json.dumps(ingredients), json.dumps(directions)]
+    else:
+        return False
+    
 
 def sample_model(
     model_name='345-recipes',
@@ -130,6 +107,23 @@ def sample_model(
                 text = enc.decode(out[i])
                 return(text)
 
+def addRecipe(recipeData):
+    # Open database connection
+    
+
+    # Prepare SQL query to INSERT a record into the database.
+    # sql = "INSERT INTO recipes(title, ingredients, directions) VALUES ('%s', '%s', '%s')" % (recipeData[0], recipeData[1], recipeData[2])
+    cursor.execute("INSERT INTO recipes(title, ingredients, directions) VALUES (%s, %s, %s)", [recipeData[0], recipeData[1], recipeData[2]])
+    # print("about to execute(%s)" % sql)
+
+    # Commit your changes in the database
+    db.commit()
+
 if __name__ == '__main__':
     while(True):
-        saveToIndex(random.randint(0,5000))
+        data = generateRecipeData()
+        if data:
+            db = pymysql.connect("localhost","root","","recipe" )
+            # prepare a cursor object using cursor() method
+            cursor = db.cursor()
+            addRecipe(data)
