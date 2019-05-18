@@ -17,7 +17,6 @@ class RecipeController extends Controller
     {
         $r = Recipe::inRandomOrder()->first();
         $recent = $this->getRecentRecipes(10);
-        dump($recent);
         $r->views = $r->views+1;
         $r->save();
         $total = Recipe::count();
