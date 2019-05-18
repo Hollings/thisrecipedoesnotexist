@@ -16,17 +16,19 @@ class RecipeController extends Controller
     public function index()
     {
         $r = Recipe::inRandomOrder()->first();
+        $recent = Recipe::latest()->take(10)->pluck('title','id');
         $r->views = $r->views+1;
         $r->save();
         $total = Recipe::count();
-        return View::make('home', array('r' => $r, 'total'=>$total));
+        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent));
     }
 
    public function view(Recipe $r){
+        $recent = Recipe::latest()->take(10)->pluck('title','id');
         $r->views = $r->views+1;
         $r->save = true;
         $r->save();
         $total = Recipe::count();
-        return View::make('home', array('r' => $r, 'total'=>$total));
+        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent));
    }
 }

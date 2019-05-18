@@ -134,4 +134,4 @@ if __name__ == '__main__':
                 cursor = db.cursor()
                 addRecipe(data)
         except:
-            pass
+            time.sleep(60)
