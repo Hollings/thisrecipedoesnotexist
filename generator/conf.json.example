@@ -1,0 +1,6 @@
+{
+	"database": "recipe",
+	"hostname": "127.0.0.1",
+	"username": "name",
+	"password": "1234"
+}

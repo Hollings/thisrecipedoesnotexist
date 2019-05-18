@@ -120,10 +120,14 @@ def addRecipe(recipeData):
     db.commit()
 
 if __name__ == '__main__':
+    f = open("conf.json","r")
+    config = json.loads(f.read());
+    print(config['database'])
+
     while(True):
         data = generateRecipeData()
         if data:
-            db = pymysql.connect("localhost","root","","recipe" )
+            db = pymysql.connect(config['hostname'],config['username'],config['password'],config['database'] )
             # prepare a cursor object using cursor() method
             cursor = db.cursor()
             addRecipe(data)
