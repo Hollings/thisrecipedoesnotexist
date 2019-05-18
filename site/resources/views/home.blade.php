@@ -46,5 +46,5 @@
     </div>
 </div>
 
-<div class='footer'>Recipe generated with temp of 0.753 at May 12 2019 07:30PM
+<div class='footer'>Recipe generated with temp of {{ $r->temp }} at {{$r->created_at}}
 </div>

@@ -8,13 +8,12 @@ import numpy as np
 import tensorflow as tf
 import random
 import pymysql
-
+import time
 
 import model, sample, encoder
 temp = 1
 
-def generateRecipeData():
-    temp = random.uniform(0.5, 2.0)
+def generateRecipeData(temp):
     # num = random.randint(0,1000);
     text = fire.Fire(sample_model)
     
@@ -51,10 +50,11 @@ def sample_model(
     seed=None,
     nsamples=1,
     batch_size=1,
-    length=None,
+    length=400,
     temperature=temp,
     top_k=0,
 ):
+    print("TEMP IS " + str(temp))
     """
     Run the sample_model
     :model_name=117M : String, which model to use
@@ -113,7 +113,7 @@ def addRecipe(recipeData):
 
     # Prepare SQL query to INSERT a record into the database.
     # sql = "INSERT INTO recipes(title, ingredients, directions) VALUES ('%s', '%s', '%s')" % (recipeData[0], recipeData[1], recipeData[2])
-    cursor.execute("INSERT INTO recipes(title, ingredients, directions) VALUES (%s, %s, %s)", [recipeData[0], recipeData[1], recipeData[2]])
+    cursor.execute("INSERT INTO recipes(title, ingredients, directions, temp, created_at) VALUES (%s, %s, %s, %s, %s)", [recipeData[0], recipeData[1], recipeData[2], str(round(temp,3)), time.strftime('%Y-%m-%d %H:%M:%S')])
     # print("about to execute(%s)" % sql)
 
     # Commit your changes in the database
@@ -125,7 +125,8 @@ if __name__ == '__main__':
     print(config['database'])
 
     while(True):
-        data = generateRecipeData()
+        temp = random.uniform(0.2, 3)
+        data = generateRecipeData(temp)
         if data:
             db = pymysql.connect(config['hostname'],config['username'],config['password'],config['database'] )
             # prepare a cursor object using cursor() method
