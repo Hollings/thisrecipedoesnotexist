@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Recipe;
 use View;
 use Illuminate\Http\Request;
-
+use Carbon;
 class RecipeController extends Controller
 {
     /**
@@ -16,7 +16,8 @@ class RecipeController extends Controller
     public function index()
     {
         $r = Recipe::inRandomOrder()->first();
-        $recent = Recipe::latest()->take(10)->pluck('title','id');
+        $recent = $this->getRecentRecipes(10);
+        dump($recent);
         $r->views = $r->views+1;
         $r->save();
         $total = Recipe::count();
@@ -24,11 +25,21 @@ class RecipeController extends Controller
     }
 
    public function view(Recipe $r){
-        $recent = Recipe::latest()->take(10)->pluck('title','id');
+        $recent = $this->getRecentRecipes(10);
         $r->views = $r->views+1;
         $r->save = true;
         $r->save();
         $total = Recipe::count();
         return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent));
+   }
+
+
+   private function getRecentRecipes($n){
+        $recents = Recipe::latest()->take($n)->select('title','id','created_at')->get();
+        foreach ($recents as $key => &$recent) {
+            $date = $recent->created_at->format('d-m-Y H:i:s');
+            $recent->timeAgo = Carbon\Carbon::parse($date, 'America/Denver')->diffForHumans();
+        }
+        return $recents;
    }
 }

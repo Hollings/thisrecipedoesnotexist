@@ -49,7 +49,7 @@
             <h2>Latest Recipes</h2>
             <ul class="list-group">
                 @foreach($recent as $key => $re)
-                    <a href="{{ $key }}" class="list-group-item list-group-item-action">{{ $re }}</a>
+                    <a href="{{ $re->id }}" class="list-group-item list-group-item-action"><strong>{{ $re->title }}</strong><br> {{ $re->timeAgo}}</a>
                 @endforeach
             </ul>
 

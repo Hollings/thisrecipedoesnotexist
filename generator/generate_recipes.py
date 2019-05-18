@@ -123,7 +123,6 @@ if __name__ == '__main__':
     f = open("conf.json","r")
     config = json.loads(f.read());
     print(config['database'])
-
     while(True):
         try:
             temp = random.uniform(0.2, 3)
