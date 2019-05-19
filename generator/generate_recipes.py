@@ -50,7 +50,7 @@ def sample_model(
     seed=None,
     nsamples=1,
     batch_size=1,
-    length=400,
+    length=None,
     temperature=temp,
     top_k=0,
 ):
