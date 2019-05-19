@@ -16,7 +16,7 @@
     .footer {
     text-align: center;
     color: #adb5bd;
-    font-size: 10px;
+    font-size: 11px;
     }
     .recent-recipes {
     font-size: 12px;
@@ -63,5 +63,5 @@
         </div>
     </div>
 </div>
-<div class='footer'>Recipe generated with temp of {{ $r->temp }} at {{$r->created_at}}
+<div class='footer'>Recipe generated {{$r->created_at}} | <strong><a class="text-success" href="https://github.com/Hollings/thisrecipedoesnotexist">Github</a> | <a class="text-success" href="https://twitter.com/DoesRecipe">Twitter</a></strong>
 </div>
