@@ -43,5 +43,11 @@ return [
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
     ],
+    'twitter' => [
+    'consumer_key'    => getenv('TWITTER_CONSUMER_KEY'),
+    'consumer_secret' => getenv('TWITTER_CONSUMER_SECRET'),
+    'access_token'    => getenv('TWITTER_ACCESS_TOKEN'),
+    'access_secret'   => getenv('TWITTER_ACCESS_SECRET')
+]
 
 ];

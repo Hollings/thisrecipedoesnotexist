@@ -49,7 +49,7 @@ def sample_model(
     model_name='345-recipes',
     seed=None,
     nsamples=1,
-    batch_size=1,
+    batch_size=8,
     length=None,
     temperature=temp,
     top_k=0,

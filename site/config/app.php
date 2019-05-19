@@ -177,6 +177,7 @@ return [
 
 
         Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,
+        NotificationChannels\Twitter\TwitterServiceProvider::class,
 
 
 
