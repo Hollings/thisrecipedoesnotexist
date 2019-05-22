@@ -8,5 +8,6 @@ use NotificationChannels\Twitter\TwitterChannel;
 
 class Recipe extends Model
 {
+	protected $guarded = ['id','password'];
 	use Notifiable;    
 }

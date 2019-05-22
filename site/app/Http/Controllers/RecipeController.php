@@ -6,6 +6,8 @@ use App\Recipe;
 use View;
 use Illuminate\Http\Request;
 use Carbon;
+use Hash;
+
 class RecipeController extends Controller
 {
     /**
@@ -41,4 +43,14 @@ class RecipeController extends Controller
         }
         return $recents;
    }
+
+   public function saveRecipe(Request $request){
+    if (Hash::check($request->password, '$2y$10$y/TJW50eL4loeni.h7ddv.isQZ8SDutOuhst8XGyDm2cuCxRHpb1q')) {
+         Recipe::create($request->all());
+         return "success";
+    }else{
+        return "failed";
+    }
+   }
+
 }
