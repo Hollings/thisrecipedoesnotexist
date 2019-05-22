@@ -42,7 +42,10 @@ class RecipeCreated extends Notification
      */
     public function toTwitter($notifiable)
     {
-        return new TwitterStatusUpdate($notifiable->title . " - http://thisrecipedoesnotexist.com/" . $notifiable->id);
+        $words = explode(" ",  $notifiable->title);
+        $hashtags = ["recipe", "yummy", "quick", "easy", "breakfast", "dinner", $words[array_rand($words)]];
+        shuffle($hashtags);
+        return new TwitterStatusUpdate($notifiable->title . " - http://thisrecipedoesnotexist.com/" . $notifiable->id . " #" . $hashtags[0] . " #".$hashtags[1]);
     }
 
     /**

@@ -45,6 +45,8 @@ class RecipeController extends Controller
    }
 
    public function saveRecipe(Request $request){
+    
+    // Yeah I know... I'll add Passport later
     if (Hash::check($request->password, '$2y$10$y/TJW50eL4loeni.h7ddv.isQZ8SDutOuhst8XGyDm2cuCxRHpb1q')) {
          Recipe::create($request->all());
          return "success";
