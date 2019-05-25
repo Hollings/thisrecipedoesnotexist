@@ -59,11 +59,11 @@ print(finalText)
 print(font.getsize(finalText))
 
 
-img = Image.new("RGB", (512, height + 70), "white")
+img = Image.new("RGB", (672, height + 70), "white")
 draw = ImageDraw.Draw(img)
 # draw.text((x, y),"Sample Text",(r,g,b))
-draw.text((10, 20),titleText,(0,0,0),font=titleFont)
-draw.text((10, 80),finalText,(0,0,0),font=font)
+draw.text((150, 20),titleText,(0,0,0),font=titleFont)
+draw.text((150, 80),finalText,(0,0,0),font=font)
 
 
 img.save('sample-out.png', format='PNG', quality=100)
