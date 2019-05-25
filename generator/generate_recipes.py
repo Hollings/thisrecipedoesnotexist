@@ -16,7 +16,7 @@ temp = 1
 
 def generateRecipeData(temp):
     # num = random.randint(0,1000);
-    text = fire.Fire(sample_model)
+    text = sample_model(temperature=temp)
     
     if "<end>" in text:
         text = text.split("<end>")[1]
@@ -40,7 +40,7 @@ def generateRecipeData(temp):
                 directions.append(line)
             
     print(title)
-    if len(title)<254 and len(ingredients)>0 and len(directions)>0:
+    if len(title)<200 and len(ingredients)>0 and len(directions)>0:
         return [title, json.dumps(ingredients), json.dumps(directions)]
     else:
         return False
@@ -111,11 +111,11 @@ def sample_model(
 if __name__ == '__main__':
     f = open("conf.json","r")
     config = json.loads(f.read());
-    temp = random.uniform(0.2, 3)
+    temp = random.uniform(0.4, 2)
     data = generateRecipeData(temp)
     if data:
         response = requests.post('https://thisrecipedoesnotexist.com/api/add/', json={'title':data[0], 
                                                                                       'ingredients':data[1],
                                                                                       'directions': data[2],
+                                                                                      'temp': temp,
                                                                                       'password': config['api_pass']})
-      
