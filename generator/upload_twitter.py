@@ -31,7 +31,7 @@ def wrap_text(text, width, font):
 
     return text_lines
 
-r = requests.request(url="http://recipes.com/api/recipe", method='get');
+r = requests.request(url="https://thisrecipedoesnotexist.com/api/recipe", method='get');
 # print(r.text)
 recipeData = json.loads(r.text)
 titleText = recipeData['title']
