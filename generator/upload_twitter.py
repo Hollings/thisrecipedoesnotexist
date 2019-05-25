@@ -59,7 +59,7 @@ print(finalText)
 print(font.getsize(finalText))
 
 
-img = Image.new("RGB", (672, height + 70), "white")
+img = Image.new("RGB", (672, height + 100), "white")
 draw = ImageDraw.Draw(img)
 # draw.text((x, y),"Sample Text",(r,g,b))
 draw.text((150, 20),titleText,(0,0,0),font=titleFont)
