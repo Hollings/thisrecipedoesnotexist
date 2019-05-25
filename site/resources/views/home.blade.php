@@ -25,9 +25,10 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Global site tag (gtag.js) - Google Analytics -->
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     {!! Analytics::render() !!}
-
+<title>{{ $r->title }}</title>
 </head>
 <div class="text-center col-sm-12 small alert alert-light">
     {{ $total }} recipes created | <a href="{{ $r->id }}" class="text-secondary strong">Permalink</a> | <a href="/" class="text-secondary">Random</a>
