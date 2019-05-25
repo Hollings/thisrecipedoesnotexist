@@ -15,3 +15,4 @@ use Illuminate\Http\Request;
 
 Route::post('add', 'RecipeController@saveRecipe');
 Route::get('recipe', 'RecipeController@getRecipeRaw');
+Route::get('search','RecipeController@search');

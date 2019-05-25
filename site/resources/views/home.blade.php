@@ -26,7 +26,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
     {!! Analytics::render() !!}
 <title>{{ $r->title }}</title>
 </head>
@@ -52,7 +53,10 @@
             </div>
         </div>
         <div class="col-md-4 recent-recipes">
-            <h2>Latest Recipes</h2>
+            <h2>Search for a Recipe</h2>
+            <input autocomplete="off" type="text" class="form-control" id="search-rec" name="search-rec">
+            <hr>
+            <h3>Latest Recipes</h3>
             <ul class="list-group">
                 @foreach($recent as $key => $re)
                     <a href="{{ $re->id }}" class="list-group-item list-group-item-action"><strong>{{ $re->title }}</strong><br> {{ $re->timeAgo}}</a>
@@ -66,3 +70,24 @@
 </div>
 <div class='footer'>Recipe generated {{$r->created_at}} | <strong><a class="text-success" href="https://github.com/Hollings/thisrecipedoesnotexist">Github</a> | <a class="text-success" href="https://twitter.com/DoesRecipe">Twitter</a></strong>
 </div>
+
+
+
+<script type="text/javascript">
+    var path = "{{ url('api/search') }}";
+    $('#search-rec').typeahead({
+         minLength: 2,
+         delay: 100,
+         afterSelect: function(item) {
+             window.location.replace(item.id);
+        },
+         displayText: function(item){ 
+            return item.title;
+        },
+        source:  function (query, process) {
+        return $.get(path, { query: query }, function (data) {
+                return process(data);
+            });
+        }
+    });
+</script>

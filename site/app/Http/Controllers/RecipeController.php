@@ -59,6 +59,12 @@ class RecipeController extends Controller
    }
 
    public function getRecipeRaw(){
-    return Recipe::inRandomOrder()->first();
+        return Recipe::inRandomOrder()->first();
    }
+
+    public function search(Request  $request)
+    {
+        $result=Recipe::where('title', 'LIKE', "%{$request->input('query')}%")->select('id','title')->get();
+        return response()->json($result);
+    }
 }
