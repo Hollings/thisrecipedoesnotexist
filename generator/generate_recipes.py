@@ -9,6 +9,7 @@ import tensorflow as tf
 import random
 import pymysql
 import time
+import requests
 
 import model, sample, encoder
 temp = 1
@@ -49,7 +50,7 @@ def sample_model(
     model_name='345-recipes',
     seed=None,
     nsamples=1,
-    batch_size=8,
+    batch_size=1,
     length=None,
     temperature=temp,
     top_k=0,
@@ -107,30 +108,14 @@ def sample_model(
                 text = enc.decode(out[i])
                 return(text)
 
-def addRecipe(recipeData):
-    # Open database connection
-    
-
-    # Prepare SQL query to INSERT a record into the database.
-    # sql = "INSERT INTO recipes(title, ingredients, directions) VALUES ('%s', '%s', '%s')" % (recipeData[0], recipeData[1], recipeData[2])
-    cursor.execute("INSERT INTO recipes(title, ingredients, directions, temp, created_at) VALUES (%s, %s, %s, %s, %s)", [recipeData[0], recipeData[1], recipeData[2], str(round(temp,3)), time.strftime('%Y-%m-%d %H:%M:%S')])
-    # print("about to execute(%s)" % sql)
-
-    # Commit your changes in the database
-    db.commit()
-
 if __name__ == '__main__':
     f = open("conf.json","r")
     config = json.loads(f.read());
-    print(config['database'])
-    while(True):
-        try:
-            temp = random.uniform(0.2, 3)
-            data = generateRecipeData(temp)
-            if data:
-                db = pymysql.connect(config['hostname'],config['username'],config['password'],config['database'] )
-                # prepare a cursor object using cursor() method
-                cursor = db.cursor()
-                addRecipe(data)
-        except:
-            time.sleep(60)
+    temp = random.uniform(0.2, 3)
+    data = generateRecipeData(temp)
+    if data:
+        response = requests.post('https://thisrecipedoesnotexist.com/api/add/', json={'title':data[0], 
+                                                                                      'ingredients':data[1],
+                                                                                      'directions': data[2],
+                                                                                      'password': config['api_pass']})
+      
