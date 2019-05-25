@@ -17,7 +17,10 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $r = Recipe::inRandomOrder()->first();
+        $r = Recipe::where('views', 0)->first();
+        if (!$r) {
+            $r = Recipe::inRandomOrder()->first();
+        }
         $recent = $this->getRecentRecipes(10);
         $r->views = $r->views+1;
         $r->save();
@@ -45,7 +48,7 @@ class RecipeController extends Controller
    }
 
    public function saveRecipe(Request $request){
-    
+
     // Yeah I know... I'll add Passport later
     if (Hash::check($request->password, '$2y$10$y/TJW50eL4loeni.h7ddv.isQZ8SDutOuhst8XGyDm2cuCxRHpb1q')) {
          Recipe::create($request->all());
@@ -55,4 +58,7 @@ class RecipeController extends Controller
     }
    }
 
+   public function getRecipeRaw(){
+    return Recipe::inRandomOrder()->first();
+   }
 }
