@@ -47,23 +47,26 @@ for line in directions:
 
 
 # font = ImageFont.truetype(<font-file>, <font-size>)
-font = ImageFont.truetype("font/arial.ttf", 12)
+font = ImageFont.truetype("font/arial.ttf", 14)
 titleFont = ImageFont.truetype("font/journal.ttf", 40)
+textLines = wrap_text(inputText, 450, ImageFont.truetype("font/arial.ttf", 14))
+titleLines = wrap_text(titleText, 500, ImageFont.truetype("font/journal.ttf", 40))
 
-
-textLines = wrap_text(inputText, 512, ImageFont.truetype("font/arial.ttf", 16))
 finalText = "\n".join(textLines);
-height = len(textLines) * 16;
+finalTitle = "\n".join(titleLines);
 
-print(finalText)
-print(font.getsize(finalText))
+titleHeight = (len(titleLines) * 40)
+height = (len(textLines) * 16) + titleHeight;
 
+# print(finalText)
+# print(font.getsize(finalText))
+print(titleHeight)
 
-img = Image.new("RGB", (672, height + 100), "white")
+img = Image.new("RGB", (600, height + 100), "#eee")
 draw = ImageDraw.Draw(img)
-# draw.text((x, y),"Sample Text",(r,g,b))
-draw.text((150, 20),titleText,(0,0,0),font=titleFont)
-draw.text((150, 80),finalText,(0,0,0),font=font)
+
+draw.text((50, 20),finalTitle,(0,0,0),font=titleFont)
+draw.text((75, 40 + titleHeight),finalText,(0,0,0),font=font)
 
 
 img.save('sample-out.png', format='PNG', quality=100)
