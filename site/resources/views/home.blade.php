@@ -27,6 +27,30 @@
     .typeahead .dropdown-item{
         white-space: initial;
     }
+    body.dark-mode {
+        background-color: #111;
+        color: #eee;
+    }
+    .dark-mode .content {
+        background-color: #333!important;
+        color: #eee;
+    }
+
+    .dark-mode .list-group {
+        background-color: #ccc!important;
+    }
+
+    .dark-mode .list-group a {
+        background-color: #333;
+        color: #eee;
+        border: 1px solid #555;
+        border-radius: 0;
+    }
+
+    .dark-mode .alert-light {
+        background-color: #222;
+        border: 0;
+    }
     </style>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,8 +61,9 @@
     {!! Analytics::render() !!}
 <title>{{ $r->title }}</title>
 </head>
+<body @if (\Cookie::get('darkmode')) class="dark-mode" @endif>
 <div class="text-center col-sm-12 small alert alert-light">
-    {{ $total }} recipes created | <a href="{{ $r->id }}" class="text-secondary strong">Permalink</a> | <a href="/" class="text-secondary">Random</a>
+    {{ $total }} recipes created | <a href="{{ $r->id }}" class="text-secondary strong">Permalink</a> | <a href="darkmode" class="text-secondary">Dark Mode</a> | <b><a href="/" class="text-secondary">Random</a></b>
 </div>
 <div class="container">
     <div class="row">
@@ -59,8 +84,7 @@
             </div>
         </div>
         <div class="col-md-4 recent-recipes">
-            <h2>Search for a Recipe</h2>
-            <input autocomplete="off" type="text" class="form-control" id="search-rec" name="search-rec">
+            <input placeholder="Search for a Recipe" autocomplete="off" type="text" class="form-control" id="search-rec" name="search-rec">
             <hr>
             <h3>Latest Recipes</h3>
             <ul class="list-group">
@@ -97,3 +121,4 @@
         }
     });
 </script>
+</body>

@@ -67,4 +67,13 @@ class RecipeController extends Controller
         $result=Recipe::where('title', 'LIKE', "%{$request->input('query')}%")->select('id','title')->get();
         return response()->json($result);
     }
+
+    public function toggleDark(Request $request){
+        if ($request->cookie('darkmode')) {
+             \Cookie::queue(\Cookie::forget('darkmode'));
+        }else{
+            \Cookie::queue("darkmode", "1", 3600);
+        }
+        return back();
+    }
 }
