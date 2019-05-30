@@ -107,6 +107,7 @@
     var path = "{{ url('api/search') }}";
     $('#search-rec').typeahead({
          minLength: 1,
+         items: 20,
          delay: 100,
          afterSelect: function(item) {
              window.location.replace(item.id);
