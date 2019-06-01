@@ -47,7 +47,7 @@ def generateRecipeData(temp):
     
 
 def sample_model(
-    model_name='345-recipes',
+    model_name='345-recipes-16M',
     seed=None,
     nsamples=1,
     batch_size=1,

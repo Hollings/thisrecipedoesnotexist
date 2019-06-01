@@ -6,3 +6,5 @@ generator/src/__pycache__/
 generator/__pycache__/
 
 generator/conf\.json
+
+generator/models/345-recipes-16M/
