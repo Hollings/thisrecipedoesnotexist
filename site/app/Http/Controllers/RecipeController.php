@@ -18,6 +18,7 @@ class RecipeController extends Controller
     public function index()
     {
         $r = Recipe::where('views', 0)->first();
+        $freshRecipeCount = Recipe::where('views', 0)->count();
         if (!$r) {
             $r = Recipe::inRandomOrder()->first();
         }
@@ -25,7 +26,7 @@ class RecipeController extends Controller
         $r->views = $r->views+1;
         $r->save();
         $total = Recipe::count();
-        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent));
+        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount));
     }
 
    public function view(Recipe $r){
