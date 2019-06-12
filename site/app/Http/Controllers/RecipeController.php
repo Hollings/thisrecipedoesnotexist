@@ -35,7 +35,9 @@ class RecipeController extends Controller
         $r->save = true;
         $r->save();
         $total = Recipe::count();
-        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent));
+        $freshRecipeCount = Recipe::where('views', 0)->count();
+
+        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount));
    }
 
 
