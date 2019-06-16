@@ -31,9 +31,18 @@ def wrap_text(text, width, font):
 
     return text_lines
 
-r = requests.request(url="https://thisrecipedoesnotexist.com/api/recipe", method='get');
-# print(r.text)
+r = requests.request(url= config['url'] + "/api/recipe", method='get');
+print(r.text)
 recipeData = json.loads(r.text)
+
+try:
+    replyTo = recipeData['queued_recipe']['mention_id']
+    replyName = "@" +recipeData['queued_recipe']['requested_by_name']
+except:
+    replyTo = None
+    replyName = ""
+
+
 titleText = recipeData['title']
 ingredients = json.loads(recipeData['ingredients'])
 directions = json.loads(recipeData['directions'])
@@ -78,4 +87,4 @@ api = twitter.Api(config['consumer_key'],
                   config['access_token_secret']
                   )
 
-api.PostUpdate(titleText + " - thisrecipedoesnotexist.com/" + str(recipeData['id']), 'sample-out.png');
+api.PostUpdate(replyName + " " + titleText + " - thisrecipedoesnotexist.com/" + str(recipeData['id']), 'sample-out.png', in_reply_to_status_id=replyTo);

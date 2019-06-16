@@ -8,6 +8,10 @@ use NotificationChannels\Twitter\TwitterChannel;
 
 class Recipe extends Model
 {
-	protected $guarded = ['id','password'];
+	protected $fillable = ['title','directions','ingredients','temp'];
 	use Notifiable;    
+
+	public function queuedRecipe(){
+		return $this->hasOne('App\QueuedRecipe');
+	}
 }
