@@ -215,6 +215,8 @@ if __name__ == '__main__':
     for mention in mentions:
         print(mention.user.id)
         title = ' '.join(word for word in mention.text.split(' ') if not word.startswith('@'))
+        title = title.title()
+        
         if not title.lower().endswith("recipe"):
             title += " Recipe"
         response = requests.post(url + '/api/queue/', json={'title':title, 
