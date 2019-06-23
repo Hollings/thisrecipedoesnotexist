@@ -24,7 +24,9 @@ class RecipeController extends Controller
             $r = Recipe::inRandomOrder()->first();
         }
         $recent = $this->getRecentRecipes(10);
-        $r->views = $r->views+1;
+        if (!$this->isSearchBot()) {
+            $r->views = $r->views+1;
+        }
         $r->save();
         $total = Recipe::count();
         return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount));
@@ -32,7 +34,9 @@ class RecipeController extends Controller
 
    public function view(Recipe $r){
         $recent = $this->getRecentRecipes(10);
-        $r->views = $r->views+1;
+        if (!$this->isSearchBot()) {
+            $r->views = $r->views+1;
+        }
         $r->save = true;
         $r->save();
         $total = Recipe::count();
@@ -59,7 +63,6 @@ class RecipeController extends Controller
          $r = Recipe::create($data);
          if (isset($data['queue_id']) && $data['queue_id'] != 0) {
             QueuedRecipe::find($data['queue_id'])->update(['status'=>'generated', 'recipe_id'=>$r->id]);
-
          }
          return $r->id;
     }else{
@@ -98,6 +101,9 @@ class RecipeController extends Controller
         return back();
     }
 
+    private function isSearchBot(){
+        return (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT']));
+    }
 
     // Queued recipe methods
     public function queueRecipe(Request $request){
