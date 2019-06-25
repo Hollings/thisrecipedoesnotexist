@@ -73,7 +73,7 @@ class RecipeController extends Controller
    public function getRecipeRaw(){
 
         $r = Recipe::whereHas('queuedRecipe', function($query){
-            $query->where('status', 'generated');
+            $query->where('status', 'generated')->where('requested_by_name','!=','site');
         })->with('queuedRecipe')->first();
 
         if ($r) {
@@ -112,6 +112,14 @@ class RecipeController extends Controller
             return $q->id;
         }
     }
+
+     // Queued recipe methods
+    public function testQueueRecipe($title){
+      
+            $q = QueuedRecipe::create(['title'=>$title, 'status'=>'queued', 'requested_by_name'=>'site' , 'requested_by_id'=>0, 'mention_id'=>0]);
+            return $q;
+    }
+    
 
     public function getNextQueuedRecipe(){
         return QueuedRecipe::where('status','queued')->first() ?? [];

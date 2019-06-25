@@ -14,3 +14,5 @@
 Route::get('/', 'RecipeController@index');
 Route::get('darkmode', 'RecipeController@toggleDark');
 Route::get('{r}', 'RecipeController@view');
+Route::get('/create/{title}', 'RecipeController@testQueueRecipe');
+
