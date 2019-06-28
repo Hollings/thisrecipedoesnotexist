@@ -44,7 +44,6 @@ def sendRecipe(text):
                                                       'ingredients':data[1],
                                                       'directions': data[2],
                                                       'temp': temp,
-                                                      'queue_id': queue_id,
                                                       'password': config['api_pass']})
         return True
     else:
