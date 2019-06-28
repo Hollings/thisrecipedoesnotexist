@@ -52,7 +52,7 @@ def sendRecipe(text):
 
 
 def sample_random_model(
-    model_name='345-recipes-16M',
+    model_name='345-recipes-32M',
     seed=None,
     nsamples=1,
     batch_size=1,
