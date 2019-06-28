@@ -36,7 +36,17 @@ def sendRecipe(text):
                 directions.append(line)  
     print(title)
     if len(title)<200 and len(ingredients)>0 and len(directions)>0:
-        return [title, json.dumps(ingredients), json.dumps(directions)]
+        f = open("conf.json","r")
+        config = json.loads(f.read());
+        url = config['url'];
+        data = [title, json.dumps(ingredients), json.dumps(directions)]
+        response = requests.post(url + '/api/add/', json={'title':data[0], 
+                                                      'ingredients':data[1],
+                                                      'directions': data[2],
+                                                      'temp': temp,
+                                                      'queue_id': queue_id,
+                                                      'password': config['api_pass']})
+        return True
     else:
         return False
 
@@ -70,15 +80,6 @@ def sample_random_model(
      while 40 means 40 words are considered at each step. 0 (default) is a
      special setting meaning no restrictions. 40 generally is a good value.
     """
-    f = open("conf.json","r")
-    config = json.loads(f.read());
-    url = config['url'];
-    response = requests.post(url + '/api/add/', json={'title':data[0], 
-                                                      'ingredients':data[1],
-                                                      'directions': data[2],
-                                                      'temp': temp,
-                                                      'queue_id': queue_id,
-                                                      'password': config['api_pass']})
 
 
 
