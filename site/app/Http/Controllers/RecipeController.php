@@ -23,7 +23,7 @@ class RecipeController extends Controller
         if (!$r) {
             $r = Recipe::inRandomOrder()->first();
         }
-        $recent = $this->getRecentRecipes(10);
+        $recent = Recipe::inRandomOrder()->limit(10)->get();
         if (!$this->isSearchBot()) {
             $r->views = $r->views+1;
         }

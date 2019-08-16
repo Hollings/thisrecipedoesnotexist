@@ -86,10 +86,10 @@
         <div class="col-md-4 recent-recipes">
             <input placeholder="Search for a Recipe" autocomplete="off" type="text" class="form-control" id="search-rec" name="search-rec">
             <hr>
-            <h3>Latest Recipes</h3>
+            <h3>Random Recipes</h3>
             <ul class="list-group">
                 @foreach($recent as $key => $re)
-                    <a href="{{ $re->id }}" class="list-group-item list-group-item-action"><strong>{{ $re->title }}</strong><br> {{ $re->timeAgo}}</a>
+                    <a href="{{ $re->id }}" class="list-group-item list-group-item-action"><strong>{{ $re->title }}</strong> <br> {{ count(json_decode($re->ingredients)) }} ingredients <br> {{ $re->timeAgo}}</a>
                 @endforeach
             </ul>
 
