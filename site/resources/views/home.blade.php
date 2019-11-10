@@ -59,9 +59,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
 
-    <meta content="This Recipe Does Not Exist" property="og:title">
+    <meta content="{{ $r->title }}" property="og:title">
 
-    <meta content="{{ $r->title }}: {{ count(json_decode($r->ingredients)) }} Ingredients" property="og:description">
+    <meta content="{{ count(json_decode($r->ingredients)) }} ingredients, {{ count(json_decode($r->directions)) }} steps." property="og:description">
 
     <meta content="thisrecipedoesnotexist.com" property="og:site_name">
 
