@@ -31,7 +31,7 @@ class RecipeController extends Controller
         $r->save();
         $total = Recipe::count();
 
-        $recentComments = Comment::with('recipe')->orderBy('id', 'desc')->take(5)->get();
+        $recentComments = Comment::with('recipe')->inRandomOrder()->take(5)->get();
 
 
         return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount, 'recentComments'=>$recentComments));
@@ -46,7 +46,7 @@ class RecipeController extends Controller
         $r->save();
         $total = Recipe::count();
         $freshRecipeCount = Recipe::where('views', 0)->count();
-       $recentComments = Comment::with('recipe')->orderBy('id', 'desc')->take(5)->get();
+       $recentComments = Comment::with('recipe')->inRandomOrder()->take(5)->get();
 
         return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount, 'recentComments'=>$recentComments));
    }
