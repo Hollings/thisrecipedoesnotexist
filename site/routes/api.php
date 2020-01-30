@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::post('add', 'RecipeController@saveRecipe');
+Route::post('comment/add', 'CommentController@save');
+
 Route::post('queue', 'RecipeController@queueRecipe');
 Route::get('recipe', 'RecipeController@getRecipeRaw');
 Route::get('search','RecipeController@search');

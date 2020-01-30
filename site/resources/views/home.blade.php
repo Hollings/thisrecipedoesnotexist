@@ -90,6 +90,7 @@
                 @endforeach
             </div>
         </div>
+
         <div class="col-md-4 recent-recipes">
             <input placeholder="Search for a Recipe" autocomplete="off" type="text" class="form-control" id="search-rec" name="search-rec">
             <hr>
@@ -104,6 +105,25 @@
            
         </div>
     </div>
+    <h2>Comments</h2>
+
+
+        @foreach ($r->comments as $comment)
+        <div class="row">
+
+        <div class='content comments shadow p-3 mb-5 bg-light rounded col-md-6'>
+            
+            <b>{{ $comment->username }}</b> writes:<br>
+
+            <h4 style="padding-left:20px; padding-top:20px;">@for($i=0;$i<$comment->rating;$i++)
+                    ⭐
+                    @endfor
+            </h4>
+            <blockquote style="padding-left:20px; padding-top:20px;">{{ $comment->body }}</blockquote>
+            </div>
+
+        </div>
+    @endforeach
 </div>
 <div class='footer'>Recipe generated {{$r->created_at}} |  {{ $freshRecipeCount }} fresh recipes left | <strong><a class="text-success" href="https://github.com/Hollings/thisrecipedoesnotexist">Github</a> | <a class="text-success" href="https://twitter.com/DoesRecipe">Twitter</a></strong> 
 </div>
