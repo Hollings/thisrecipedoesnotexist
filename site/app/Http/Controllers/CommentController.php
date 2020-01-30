@@ -17,7 +17,6 @@ class CommentController extends Controller
         }
 
 
-        dump($request->all());
         $comment = Comment::make($request->all());
 
         if ($request->recipe_id) {
@@ -27,10 +26,8 @@ class CommentController extends Controller
         }
 
         if(!$recipe){
-            dump("no recipe");
             return true;
         }
-        dump($recipe->id);
 
         $comment->recipe()->associate($recipe)->save();
 
