@@ -131,6 +131,14 @@
                 @endforeach
             </ul>
 
+            <h3 style="padding-top:20px">Recent Activity</h3>
+            <ul class="list-group">
+                @foreach($recentComments as $key => $comment)
+                    <a href="{{ $comment->recipe->id }}"
+                       class="list-group-item list-group-item-action"><strong>{{ $comment->username }} </strong> commented on <strong>{{ $comment->recipe->title }}</strong></a>
+                @endforeach
+            </ul>
+
 
         </div>
     </div>

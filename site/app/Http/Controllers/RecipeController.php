@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Recipe;
 use App\QueuedRecipe;
 use View;
@@ -29,7 +30,11 @@ class RecipeController extends Controller
         }
         $r->save();
         $total = Recipe::count();
-        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount));
+
+        $recentComments = Comment::with('recipe')->orderBy('id', 'desc')->take(5)->get();
+
+
+        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount, 'recentComments'=>$recentComments));
     }
 
    public function view(Recipe $r){
@@ -41,8 +46,9 @@ class RecipeController extends Controller
         $r->save();
         $total = Recipe::count();
         $freshRecipeCount = Recipe::where('views', 0)->count();
+       $recentComments = Comment::with('recipe')->orderBy('id', 'desc')->take(5)->get();
 
-        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount));
+        return View::make('home', array('r' => $r, 'total'=>$total, 'recent'=>$recent, 'freshRecipeCount'=>$freshRecipeCount, 'recentComments'=>$recentComments));
    }
 
 
