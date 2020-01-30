@@ -16,11 +16,18 @@ class CommentController extends Controller
             return true;
         }
 
+        $vowels = ['a','e','i','o','u'];
+        $requestData = $request->all();
 
-        $comment = Comment::make($request->all());
+        // Replace vowels with other vowels because I dont want to accidentally generate someone's real name 
+        $requestData['username'] = preg_replace("/([aeiou])/i", $vowels[array_rand($vowels)], $request->username);
 
-        if ($request->recipe_id) {
-            $recipe = Recipe::find($request->recipe_id);
+
+
+        $comment = Comment::make($requestData);
+
+        if (isset($requestData['recipe_id'])) {
+            $recipe = Recipe::find($requestData['recipe_id']);
         }else{
             $recipe = Recipe::inRandomOrder()->first();
         }
@@ -31,6 +38,6 @@ class CommentController extends Controller
 
         $comment->recipe()->associate($recipe)->save();
 
-        return "ok";
+        return $comment;
     }
 }
