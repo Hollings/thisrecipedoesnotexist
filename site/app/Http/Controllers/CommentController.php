@@ -13,13 +13,13 @@ class CommentController extends Controller
 
         // I really should get some actual auth
         if (!Hash::check($request['password'], '$2y$10$y/TJW50eL4loeni.h7ddv.isQZ8SDutOuhst8XGyDm2cuCxRHpb1q')) {
-            return true;
+            return "Invalid Pass";
         }
 
         $vowels = ['a','e','i','o','u'];
         $requestData = $request->all();
 
-        // Replace vowels with other vowels because I dont want to accidentally generate someone's real name 
+        // Replace vowels with other vowels because I dont want to accidentally generate someone's real name
         $requestData['username'] = preg_replace("/([aeiou])/i", $vowels[array_rand($vowels)], $request->username);
 
 
@@ -33,7 +33,7 @@ class CommentController extends Controller
         }
 
         if(!$recipe){
-            return true;
+            return "Recipe not found";
         }
 
         $comment->recipe()->associate($recipe)->save();
