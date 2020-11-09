@@ -166,7 +166,7 @@
 
 </div>
 <div class='footer'>Recipe generated {{$r->created_at}} | {{ $freshRecipeCount }} fresh recipes left | <strong><a
-                class="text-success" href="https://github.com/Hollings/thisrecipedoesnotexist">Github</a> | <a
+                class="text-success" href="https://github.com/Hollings/thisrecipedoesnotexist">GitHub</a> | <a
                 class="text-success" href="https://twitter.com/DoesRecipe">Twitter</a></strong>
 </div>
 
