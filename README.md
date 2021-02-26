@@ -7,14 +7,14 @@
 
 > Randomly generates recipes using the power of machine learning
 
-### 🏠 [Homepage](thisrecipedoesnotexist.com)
+### 🏠 [Homepage](https://thisrecipedoesnotexist.com)
 
 ## Author
 
 👤 **John Hollingsworth**
 
 * Twitter: [@DoesRecipe](https://twitter.com/DoesRecipe)
-* Github: [@Hollings](https://github.com/Hollings)
+* GitHub: [@Hollings](https://github.com/Hollings)
 
 ## Show your support
 
