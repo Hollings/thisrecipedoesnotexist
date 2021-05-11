@@ -1,24 +1,8 @@
-<h1 align="center">Welcome to thisrecipedoesnotexist.com 👋</h1>
-<p>
-  <a href="https://twitter.com/DoesRecipe">
-    <img alt="Twitter: DoesRecipe" src="https://img.shields.io/twitter/follow/DoesRecipe.svg?style=social" target="_blank" />
-  </a>
-</p>
+This Recipe Does Not Exist is an AI powered recipe site and twitter bot
 
-> Randomly generates recipes using the power of machine learning
+https://thisrecipedoesnotexist.com/ | https://twitter.com/DoesRecipe
 
-### 🏠 [Homepage](https://thisrecipedoesnotexist.com)
 
-## Author
+![Screenshot 2021-05-11 125032](https://user-images.githubusercontent.com/3793509/117869012-82b91a80-b257-11eb-9efe-5a273b7a0828.png)
 
-👤 **John Hollingsworth**
-
-* Twitter: [@DoesRecipe](https://twitter.com/DoesRecipe)
-* GitHub: [@Hollings](https://github.com/Hollings)
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+GPT-2 model was trained using scraped data from various recipe websites, recipes are generated using python and GPT-2, Twitter bot posts every three hours from a python script
