@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-sqlite:////data/app.db}
+      TRDNE_ADMIN_PASSWORD_HASH: ${TRDNE_ADMIN_PASSWORD_HASH:-}
+    volumes:
+      - recipe-data:/data
+    restart: unless-stopped
+
+volumes:
+  recipe-data:
