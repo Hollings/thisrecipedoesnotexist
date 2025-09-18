@@ -11,3 +11,6 @@ generator/models/345-recipes-16M/
 
 python_server/app.db
 python_server/__pycache__/
+
+# Full 94MB MySQL dump — too big for git; use recipes_recipes_sample.sql for dev
+recipes_recipes.sql
