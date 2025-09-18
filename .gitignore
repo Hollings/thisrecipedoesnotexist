@@ -8,3 +8,6 @@ generator/__pycache__/
 generator/conf\.json
 
 generator/models/345-recipes-16M/
+
+python_server/app.db
+python_server/__pycache__/
